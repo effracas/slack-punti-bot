@@ -1,0 +1,9 @@
+# Nella cartella del progetto
+git init
+git add .
+git commit -m "Initial bot setup"
+
+# Crea un repo privato su github.com (es. "slack-punti-bot")
+git remote add origin https://github.com/effracas/slack-punti-bot.git
+git branch -M main
+git push -u origin main
