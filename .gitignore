@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 ultimo_dati.pkl
 venv/
+alias_mapping.pkl

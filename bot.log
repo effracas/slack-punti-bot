@@ -1,0 +1,189 @@
+2026-10-19 04:35:04,843 - INFO - A new session has been established (session id: c49fca29-584a-4998-bb8b-e9500faada4e)
+2026-10-19 04:35:04,844 - INFO - Bolt app is running!
+2026-10-19 04:35:04,893 - INFO - Starting to receive messages from a new connection (session id: c49fca29-584a-4998-bb8b-e9500faada4e)
+2026-10-19 05:11:08,912 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:11:08,924 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:11:12,160 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:11:12,160 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:12:15,546 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:12:15,546 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:36,236 - INFO - A new session has been established (session id: aeff499c-6765-4ef4-9804-61f796308300)
+2026-10-19 05:13:36,236 - INFO - Bolt app is running!
+2026-10-19 05:13:36,269 - INFO - Starting to receive messages from a new connection (session id: aeff499c-6765-4ef4-9804-61f796308300)
+2026-10-19 05:13:48,107 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:48,108 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:51,353 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:51,354 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:52,434 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:52,434 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:55,679 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:55,680 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:56,532 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:56,533 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:13:59,820 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:13:59,821 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:14:07,012 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:14:07,012 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:14:10,403 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:14:10,403 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:14:54,871 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:14:54,872 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:14:59,018 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:14:59,018 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:15:02,412 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'message_deleted'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:15:02,413 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:15:13,538 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:15:13,538 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:17:18,921 - WARNING - Unhandled request ({'type': 'event_callback', 'event': {'type': 'message', 'subtype': 'file_share'}})
+---
+[Suggestion] You can handle this type of event with the following listener function:
+
+@app.event("message")
+def handle_message_events(body, logger):
+    logger.info(body)
+
+2026-10-19 05:17:18,922 - INFO - Unsuccessful Bolt execution result (status: 404, body: {"error": "unhandled request"})
+2026-10-19 05:19:28,502 - INFO - Avvio Slack Punti Bot...
+2026-10-19 05:19:28,504 - INFO - Nessun backup trovato, parto da zero
+2026-10-19 05:19:28,504 - INFO - Admin channel: C0CA5R4TD70
+2026-10-19 05:19:29,163 - INFO - A new session has been established (session id: 84635340-b2be-4a8d-9b79-fa6d12d7aa17)
+2026-10-19 05:19:29,164 - INFO - Bolt app is running!
+2026-10-19 05:19:29,169 - INFO - Starting to receive messages from a new connection (session id: 84635340-b2be-4a8d-9b79-fa6d12d7aa17)
+2026-10-19 05:19:56,102 - ERROR - Errore processamento Excel
+Traceback (most recent call last):
+  File "C:\Users\effracas\Desktop\progetti\slack-punti-bot\app.py", line 130, in processa_file_da_evento
+    nuovi_dati = processa_excel(file_info['url_private_download'])
+  File "C:\Users\effracas\Desktop\progetti\slack-punti-bot\app.py", line 102, in processa_excel
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Colonne mancanti: {'nome', 'email', 'punti'}. Richieste: email, nome, punti
+2026-10-19 05:20:17,722 - ERROR - Errore processamento Excel
+Traceback (most recent call last):
+  File "C:\Users\effracas\Desktop\progetti\slack-punti-bot\app.py", line 130, in processa_file_da_evento
+    nuovi_dati = processa_excel(file_info['url_private_download'])
+  File "C:\Users\effracas\Desktop\progetti\slack-punti-bot\app.py", line 102, in processa_excel
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Colonne mancanti: {'nome', 'email', 'punti'}. Richieste: email, nome, punti
+2026-10-19 05:34:00,148 - INFO - Avvio Slack Punti Bot...
+2026-10-19 05:34:00,148 - INFO - Nessun backup trovato, parto da zero
+2026-10-19 05:34:00,148 - INFO - Admin channel: C0CA5R4TD70
+2026-10-19 05:34:00,952 - INFO - A new session has been established (session id: da90d3e3-08fa-413e-b342-91a0b44dac51)
+2026-10-19 05:34:00,952 - INFO - Bolt app is running!
+2026-10-19 05:34:01,035 - INFO - Starting to receive messages from a new connection (session id: da90d3e3-08fa-413e-b342-91a0b44dac51)
+2026-10-19 05:45:05,359 - INFO - Backup salvato (108 utenti)
+2026-10-19 05:45:05,645 - INFO - Caricati 108 utenti da SwagHub_DER5_export(2).xlsx
+2026-10-19 06:10:15,768 - INFO - Avvio Slack Punti Bot v3...
+2026-10-19 06:10:15,769 - INFO - Nessun backup dati trovato
+2026-10-19 06:10:15,769 - INFO - Nessun alias mapping salvato
+2026-10-19 06:10:15,769 - INFO - Admin channel: C0CA5R4TD70
+2026-10-19 06:10:16,419 - INFO - A new session has been established (session id: ba616efa-5810-433f-ad7e-0555135a56db)
+2026-10-19 06:10:16,420 - INFO - Bolt app is running!
+2026-10-19 06:10:16,436 - INFO - Starting to receive messages from a new connection (session id: ba616efa-5810-433f-ad7e-0555135a56db)
