@@ -1,12 +1,16 @@
 """
-Slack Punti Bot v3
-──────────────────
+Slack Punti Bot v3 - Production Ready
+──────────────────────────────────────
 Features:
-  - /punti <alias>  → mostra saldo e salva alias per futuro uso
+  - /punti   → mostra saldo e salva alias per futuro uso
   - /punti          → usa l'alias salvato (dopo prima registrazione)
+  - /dimentica      → rimuove l'alias registrato
+  - /classifica     → top 10 utenti
+  - /stato          → stato del bot
+  - /aiuto          → lista comandi
   - Saldo dettagliato: balance, assigned, spent
-  - Classifica con dettagli
-  - Backup automatico dei dati + mapping Slack→alias
+  - Upload Excel via Slack (canale admin)
+  - Backup automatico persistente (locale o /data su Railway)
 """
 
 import os
@@ -44,14 +48,24 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Verifica variabili d'ambiente obbligatorie
 REQUIRED_ENV = ["SLACK_BOT_TOKEN", "SLACK_APP_TOKEN", "ADMIN_CHANNEL_ID"]
 for var in REQUIRED_ENV:
     if not os.environ.get(var):
         raise RuntimeError(f"Variabile d'ambiente mancante: {var}")
 
 ADMIN_CHANNEL = os.environ["ADMIN_CHANNEL_ID"]
-DATI_BACKUP_FILE = "ultimo_dati.pkl"
-ALIAS_BACKUP_FILE = "alias_mapping.pkl"
+
+# ═══════════════════════════════════════════════════════════════
+# 💾  PATH BACKUP (automatico: /data su Railway, locale altrove)
+# ═══════════════════════════════════════════════════════════════
+
+# Se esiste la cartella /data (Railway Volume), usala. Altrimenti locale.
+BACKUP_DIR = "/data" if os.path.isdir("/data") else "."
+DATI_BACKUP_FILE = os.path.join(BACKUP_DIR, "ultimo_dati.pkl")
+ALIAS_BACKUP_FILE = os.path.join(BACKUP_DIR, "alias_mapping.pkl")
+
+logger.info(f"Backup directory: {BACKUP_DIR}")
 
 app = App(token=os.environ["SLACK_BOT_TOKEN"])
 
@@ -123,8 +137,8 @@ def carica_alias_mapping():
 
 def processa_excel(file_url: str) -> dict:
     """
-    Legge Excel ed estrae: alias, balance, assigned, spent.
-    Ignora employee_id, txn_count e altre colonne.
+    Legge Excel ed estrae: alias, balance, assigned (opzionale), spent (opzionale).
+    Ignora employee_id, txn_count e altre colonne presenti nel file.
     """
     headers = {"Authorization": f"Bearer {os.environ['SLACK_BOT_TOKEN']}"}
     response = requests.get(file_url, headers=headers, timeout=30)
@@ -141,10 +155,11 @@ def processa_excel(file_url: str) -> dict:
             f"Richieste almeno: alias, balance"
         )
 
-    # Alias e balance obbligatori, assigned e spent opzionali
+    # Normalizzazione
     df['alias'] = df['alias'].astype(str).str.lower().str.strip()
     df['balance'] = pd.to_numeric(df['balance'], errors='coerce').fillna(0).astype(int)
 
+    # Colonne opzionali
     if 'assigned' in df.columns:
         df['assigned'] = pd.to_numeric(df['assigned'], errors='coerce').fillna(0).astype(int)
     else:
@@ -169,6 +184,7 @@ def processa_excel(file_url: str) -> dict:
 
 
 def processa_file_da_evento(file_info, client, channel_id):
+    """Processa un file Excel caricato nel canale admin"""
     global dati_punti, ultimo_aggiornamento
 
     if not file_info['name'].lower().endswith(('.xlsx', '.xls')):
@@ -201,7 +217,7 @@ def processa_file_da_evento(file_info, client, channel_id):
                 f"• Totale balance: *{totale_balance:,}* pt\n"
                 f"• Totale assegnati: *{totale_assigned:,}* pt\n"
                 f"• Totale spesi: *{totale_spent:,}* pt\n"
-                f"\nGli utenti possono usare `/punti <alias>` 🎯"
+                f"\nGli utenti possono usare `/punti ` 🎯"
             )
         )
         logger.info(f"Caricati {len(dati_punti)} utenti da {file_info['name']}")
@@ -218,11 +234,12 @@ def processa_file_da_evento(file_info, client, channel_id):
 
 
 # ═══════════════════════════════════════════════════════════════
-# 📤  HANDLER UPLOAD
+# 📤  HANDLER UPLOAD (file_shared + message.file_share)
 # ═══════════════════════════════════════════════════════════════
 
 @app.event("file_shared")
 def gestisci_file_shared(event, client):
+    """Handler per evento file_shared standalone"""
     try:
         file_info = client.files_info(file=event['file_id'])['file']
     except Exception as e:
@@ -237,6 +254,7 @@ def gestisci_file_shared(event, client):
 
 @app.event("message")
 def gestisci_message(event, client, logger):
+    """Cattura upload via message.file_share, ignora altri subtype"""
     subtype = event.get('subtype')
 
     if subtype == 'file_share' and event.get('channel') == ADMIN_CHANNEL:
@@ -325,7 +343,7 @@ def mostra_punti(ack, command, client):
             text=(
                 "ℹ️ *Primo utilizzo?*\n"
                 "Dimmi il tuo alias Amazon una volta sola:\n"
-                "`/punti <tuo-alias>`\n\n"
+                "`/punti `\n\n"
                 "_Esempio: `/punti mrossi`_\n"
                 "_Dalla prossima volta ti basterà digitare `/punti`._"
             )
@@ -337,7 +355,7 @@ def mostra_punti(ack, command, client):
             channel=slack_user_id,
             text=(
                 f"⚠️ Il tuo alias salvato (`{alias_salvato}`) non è più nel file.\n"
-                f"Riregistralo con: `/punti <nuovo-alias>`"
+                f"Riregistralo con: `/punti `"
             )
         )
         return
@@ -362,7 +380,7 @@ def dimentica_alias(ack, command, client):
         salva_alias_mapping()
         client.chat_postMessage(
             channel=slack_user_id,
-            text=f"🧹 Alias `{vecchio}` dimenticato. Usa `/punti <nuovo-alias>` per registrarne uno nuovo."
+            text=f"🧹 Alias `{vecchio}` dimenticato. Usa `/punti ` per registrarne uno nuovo."
         )
     else:
         client.chat_postMessage(
@@ -425,7 +443,8 @@ def stato(ack, command, client):
             f"• Utenti nel file: *{len(dati_punti)}*\n"
             f"• Utenti Slack registrati: *{len(alias_mapping)}*\n"
             f"• Ultimo aggiornamento dati: {ultimo}\n"
-            f"• Avviato: {AVVIO.strftime('%d/%m/%Y %H:%M')}"
+            f"• Avviato: {AVVIO.strftime('%d/%m/%Y %H:%M')}\n"
+            f"• Backup dir: `{BACKUP_DIR}`"
         )
     )
 
@@ -441,7 +460,7 @@ def aiuto(ack, command, client):
         channel=command['user_id'],
         text=(
             "*🤖 Comandi disponibili:*\n\n"
-            "• `/punti <alias>` — Mostra i tuoi punti e salva l'alias\n"
+            "• `/punti ` — Mostra i tuoi punti e salva l'alias\n"
             "   _Esempio: `/punti mrossi`_\n"
             "• `/punti` — Usa l'alias già registrato\n"
             "• `/dimentica` — Rimuove il tuo alias registrato\n"
